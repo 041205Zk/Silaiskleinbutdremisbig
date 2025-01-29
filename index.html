@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <title>Sıla'nın Epik Macerası 🚀</title>
+    <style>
+        :root {
+            --main-color: #ff69b4;
+            --secondary-color: #7b2cbf;
+        }
+
+        body {
+            background: linear-gradient(45deg, #ff99cc, #99ffcc, #99ccff);
+            font-family: 'Comic Sans MS', cursive;
+            text-align: center;
+            min-height: 100vh;
+            margin: 0;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .title {
+            color: var(--main-color);
+            text-shadow: 3px 3px #fff;
+            font-size: 3em;
+            animation: rainbow 5s infinite;
+            margin: 20px;
+        }
+
+        .sila-container {
+            position: relative;
+            margin: 50px 0;
+        }
+
+        .sila-img {
+            width: 200px;
+            transition: 0.5s;
+            cursor: pointer;
+            filter: drop-shadow(0 0 10px rgba(0,0,0,0.3));
+        }
+
+        .dance {
+            animation: dance 1s infinite;
+        }
+
+        .joke-box {
+            background: rgba(255,255,255,0.9);
+            border-radius: 30px;
+            padding: 30px;
+            margin: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            backdrop-filter: blur(5px);
+        }
+
+        @keyframes rainbow {
+            0% { color: #ff0000; }
+            25% { color: #00ff00; }
+            50% { color: #0000ff; }
+            75% { color: #ff00ff; }
+            100% { color: #ff0000; }
+        }
+
+        @keyframes dance {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            25% { transform: translateY(-20px) rotate(10deg); }
+            50% { transform: translateY(0) rotate(-10deg); }
+            75% { transform: translateY(-10px) rotate(5deg); }
+        }
+
+        .game-btn {
+            background: var(--secondary-color);
+            color: white;
+            padding: 20px 40px;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.5em;
+            margin: 15px;
+            cursor: pointer;
+            transition: 0.3s;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        .game-btn:hover {
+            transform: scale(1.15) rotate(5deg);
+            background: var(--main-color);
+        }
+
+        .floating-text {
+            animation: float 3s infinite;
+            font-size: 1.2em;
+            color: var(--secondary-color);
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="title">🌟 Sıla Boyu Mini Dünyası DEV 🌈</h1>
+        
+        <div class="sila-container">
+            <img src="https://cdn-icons-png.flaticon.com/512/4474/4474853.png" 
+                 class="sila-img dance" 
+                 alt="Dans Eden Sıla"
+                 id="silaCharacter">
+        </div>
+
+        <div class="joke-box">
+            <h2>🎚️ Sıla Boyut Kontrol Paneli</h2>
+            <div id="heightDisplay" style="font-size: 2em; margin: 20px;">
+                📏 1.58cm | 🚀 158cm Ruh!
+            </div>
+            <button class="game-btn" onclick="zoomEffect()">Büyüteçle Bak 🔎</button>
+            <button class="game-btn" onclick="megaJump()">Mega Zıpla! 🚀</button>
+            <button class="game-btn" onclick="toggleDance()">Disko Dansı 💃</button>
+        </div>
+
+        <div class="joke-box">
+            <h2>🎵 Europapa Soundtrack</h2>
+            <iframe width="560" height="315" src="https://www.youtube.com//embed/F5tSoaJ93ac?si=HhZ3vVXhWl8Mf0y2" 
+                    title="YouTube video player" 
+                    frameborder="0" 
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                    allowfullscreen>
+            </iframe>
+        </div>
+
+        <div class="joke-box">
+            <h2>🎮 Epik Oyun Modları</h2>
+            <button class="game-btn" onclick="startMinigame('ladder')">Merdiven Tırmanma 🪜</button>
+            <button class="game-btn" onclick="startMinigame('giraffe')">Zürafa Yarışı 🦒</button>
+            <button class="game-btn" onclick="startConfettiStorm()">Konfetti Fırtınası 🌪️</button>
+        </div>
+    </div>
+
+    <audio id="mainAudio" loop>
+        <source src="https://assets.mixkit.co/active_storage/sfx/2993/2993-preview.mp3" type="audio/mpeg">
+    </audio>
+
+    <script>
+        const soundLibrary = {
+            jump: ['https://www.soundjay.com/buttons/sounds/button-10.mp3', 
+                  'https://www.soundjay.com/buttons/sounds/button-16.mp3'],
+            laugh: ['https://www.soundjay.com/human/sounds/child-laugh-01.mp3',
+                   'https://www.soundjay.com/human/sounds/giggle-01.mp3'],
+            magic: 'https://www.soundjay.com/magic/sounds/magic-spell-01.mp3'
+        }
+
+        let isDancing = true;
+
+        function randomFrom(array) {
+            return array[Math.floor(Math.random() * array.length)];
+        }
+
+        function zoomEffect() {
+            const sila = document.getElementById('silaCharacter');
+            sila.style.transform = 'scale(5) translateY(-50px)';
+            playSound('magic');
+            setTimeout(() => {
+                sila.style.transform = 'scale(1)';
+            }, 1000);
+        }
+
+        function megaJump() {
+            const sila = document.getElementById('silaCharacter');
+            sila.style.transform = 'translateY(-200px)';
+            playSound(randomFrom(soundLibrary.jump));
+            setTimeout(() => {
+                sila.style.transform = 'translateY(0)';
+            }, 800);
+        }
+
+        function toggleDance() {
+            const sila = document.getElementById('silaCharacter');
+            isDancing = !isDancing;
+            sila.style.animation = isDancing ? 'dance 1s infinite' : 'none';
+            playSound(randomFrom(soundLibrary.laugh));
+        }
+
+        function startConfettiStorm() {
+            const confettiScript = document.createElement('script');
+            confettiScript.src = 'https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js';
+            document.head.appendChild(confettiScript);
+            
+            confettiScript.onload = () => {
+                const duration = 5000;
+                const end = Date.now() + duration;
+
+                (function frame() {
+                    confetti({
+                        particleCount: 50,
+                        angle: 60,
+                        spread: 80,
+                        origin: { x: 0 },
+                        colors: ['#ff69b4', '#7b2cbf', '#ffffff']
+                    });
+                    
+                    confetti({
+                        particleCount: 50,
+                        angle: 120,
+                        spread: 80,
+                        origin: { x: 1 },
+                        colors: ['#ff69b4', '#7b2cbf', '#ffffff']
+                    });
+
+                    if (Date.now() < end) {
+                        requestAnimationFrame(frame);
+                    }
+                }());
+            };
+        }
+
+        function playSound(sound) {
+            new Audio(sound).play();
+        }
+
+        // Arka plan müziği kontrolü
+        window.onload = () => {
+            const audio = document.getElementById('mainAudio');
+            audio.volume = 0.3;
+            audio.play();
+        }
+    </script>
+</body>
+</html>
